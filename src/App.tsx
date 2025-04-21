@@ -55,15 +55,17 @@ export const App = () => {
       <h1>Recur</h1>
       <h2>Tasks:</h2>
       <ul>
-        {Object.values(tasks).map((task) => (
-          <TaskComponent
-            key={task.id}
-            task={task}
-            logTask={logTask}
-            editTask={setEditTask}
-            deleteTask={deleteTask}
-          />
-        ))}
+        {Object.values(tasks)
+          .sort((a, b) => dayjs(a.dueDate).unix() - dayjs(b.dueDate).unix())
+          .map((task) => (
+            <TaskComponent
+              key={task.id}
+              task={task}
+              logTask={logTask}
+              editTask={setEditTask}
+              deleteTask={deleteTask}
+            />
+          ))}
       </ul>
       <hr></hr>
       {editTask ? (
@@ -80,8 +82,8 @@ export const App = () => {
       <hr></hr>
       <h2>Log</h2>
       <ul>
-        {log.map((entry, i) => (
-          <li key={i}>
+        {log.map((entry) => (
+          <li key={entry.id}>
             {entry.title} {entry.date}
           </li>
         ))}
