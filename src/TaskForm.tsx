@@ -7,12 +7,46 @@ type Props = {
 };
 
 export const TaskForm: FC<Props> = ({ task, saveTask }) => {
-  const [name, setName] = useState(task.name);
+  const [title, setTitle] = useState(task.title);
+
+  const [dueDate, setDueDate] = useState<string>(task.dueDate);
+  const [interval, setInterval] = useState<string>(
+    task.interval?.toString() ?? ""
+  );
 
   return (
     <div>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
-      <button onClick={() => saveTask({ id: task.id, name })}>Save</button>
+      <input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Title"
+      />
+      <input
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+        placeholder="Due"
+      />
+      <input
+        type="number"
+        value={interval}
+        onChange={(e) => setInterval(e.target.value)}
+        placeholder="Interval"
+      />
+      <button
+        onClick={() => {
+          const intervalNumber = Number(interval);
+          const isNumber = interval !== "" && !isNaN(intervalNumber);
+
+          saveTask({
+            id: task.id,
+            title,
+            dueDate,
+            interval: isNumber ? intervalNumber : null,
+          });
+        }}
+      >
+        Save
+      </button>
     </div>
   );
 };

@@ -1,8 +1,13 @@
+import dayjs from "dayjs";
 import { Task, TaskComponent } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { useState } from "react";
 
-const defaultTask: Omit<Task, "id"> = { name: "" };
+const defaultTask: Omit<Task, "id"> = {
+  title: "",
+  dueDate: dayjs().format("YYYY-MM-DD"),
+  interval: null,
+};
 
 export const App = () => {
   const [tasks, setTasks] = useState<Record<string, Task>>({});

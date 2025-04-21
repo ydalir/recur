@@ -2,7 +2,9 @@ import { FC } from "react";
 
 export type Task = {
   id: string;
-  name: string;
+  title: string;
+  dueDate: string;
+  interval: number | null;
 };
 
 type Props = {
@@ -14,7 +16,7 @@ type Props = {
 export const TaskComponent: FC<Props> = ({ editTask, deleteTask, task }) => {
   return (
     <li>
-      {task.name} <button onClick={() => editTask(task)}>Edit</button>
+      {task.title} <button onClick={() => editTask(task)}>Edit</button>
       <button onClick={() => deleteTask(task)}>Delete</button>
     </li>
   );
