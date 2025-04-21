@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { Task, TaskComponent } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { useState } from "react";
+import { DatePicker } from "./DatePicker";
 
 const defaultTask: Omit<Task, "id"> = {
   title: "",
@@ -20,6 +21,7 @@ export const App = () => {
   const [tasks, setTasks] = useState<Record<string, Task>>({});
   const [editTask, setEditTask] = useState<Task>();
   const [log, setLog] = useState<LogEntry[]>([]);
+  const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
 
   const deleteTask = (task: Task) =>
     setTasks(({ [task.id]: _, ...tasks }) => tasks);
@@ -32,27 +34,33 @@ export const App = () => {
   };
 
   const logTask = (task: Task) => {
-    const dueDate =
-      task.interval !== null
-        ? dayjs(task.dueDate ?? undefined)
-            .add(task.interval, "days")
-            .format("YYYY-MM-DD")
-        : null;
-
-    saveTask({ ...task, dueDate });
-
     const logEntry: LogEntry = {
       id: crypto.randomUUID(),
       title: task.title,
-      date: dayjs().format("YYYY-MM-DD"),
+      date: date.format("YYYY-MM-DD"),
       taskId: task.id,
     };
     setLog((prev) => [...prev, logEntry]);
+
+    if (task.interval === null) return saveTask({ ...task, dueDate: null });
+
+    if (task.dueDate === null)
+      return saveTask({
+        ...task,
+        dueDate: date.add(task.interval, "days").format("YYYY-MM-DD"),
+      });
+
+    const dueDate = dayjs(task.dueDate);
+    const pickedDate = date.add(task.interval, "days");
+
+    if (pickedDate.isAfter(dueDate))
+      return saveTask({ ...task, dueDate: pickedDate.format("YYYY-MM-DD") });
   };
 
   return (
     <div>
       <h1>Recur</h1>
+      <DatePicker date={date} setDate={setDate} />
       <h2>Tasks:</h2>
       <ul>
         {Object.values(tasks)
