@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { Task } from "./Task";
+import dayjs from "dayjs";
 
 type Props = {
   task: Task;
@@ -9,7 +10,7 @@ type Props = {
 export const TaskForm: FC<Props> = ({ task, saveTask }) => {
   const [title, setTitle] = useState(task.title);
 
-  const [dueDate, setDueDate] = useState<string>(task.dueDate);
+  const [dueDate, setDueDate] = useState<string>(task.dueDate ?? "");
   const [interval, setInterval] = useState<string>(
     task.interval?.toString() ?? ""
   );
@@ -17,6 +18,7 @@ export const TaskForm: FC<Props> = ({ task, saveTask }) => {
   return (
     <div>
       <input
+        autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
@@ -37,10 +39,12 @@ export const TaskForm: FC<Props> = ({ task, saveTask }) => {
           const intervalNumber = Number(interval);
           const isNumber = interval !== "" && !isNaN(intervalNumber);
 
+          const isValidDate = dayjs(dueDate).isValid();
+
           saveTask({
             id: task.id,
             title,
-            dueDate,
+            dueDate: isValidDate ? dueDate : null,
             interval: isNumber ? intervalNumber : null,
           });
         }}
