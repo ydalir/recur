@@ -17,9 +17,28 @@ type LogEntry = {
   taskId: string;
 };
 
+type TaskView = {
+  name: "tasks";
+};
+
+type LogView = {
+  name: "log";
+};
+
+type EditView = {
+  name: "edit";
+  task: Task;
+};
+
+export type View = TaskView | LogView | EditView;
+
 export const App = () => {
+  const [view, setView] = useState<View>({ name: "tasks" });
+
   const [tasks, setTasks] = useState<Record<string, Task>>({});
-  const [editTask, setEditTask] = useState<Task>();
+  const setEditTask = (task: Task) => {
+    setView({ name: "edit", task });
+  };
   const [log, setLog] = useState<LogEntry[]>([]);
   const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
 
@@ -30,7 +49,13 @@ export const App = () => {
     setTasks((tasks) => {
       return { ...tasks, [task.id]: task };
     });
-    setEditTask(undefined);
+    setView({ name: "tasks" });
+  };
+
+  const editTask = (task: Task) => {
+    setTasks((tasks) => {
+      return { ...tasks, [task.id]: task };
+    });
   };
 
   const logTask = (task: Task) => {
@@ -42,10 +67,10 @@ export const App = () => {
     };
     setLog((prev) => [...prev, logEntry]);
 
-    if (task.interval === null) return saveTask({ ...task, dueDate: null });
+    if (task.interval === null) return editTask({ ...task, dueDate: null });
 
     if (task.dueDate === null)
-      return saveTask({
+      return editTask({
         ...task,
         dueDate: date.add(task.interval, "days").format("YYYY-MM-DD"),
       });
@@ -54,48 +79,61 @@ export const App = () => {
     const pickedDate = date.add(task.interval, "days");
 
     if (pickedDate.isAfter(dueDate))
-      return saveTask({ ...task, dueDate: pickedDate.format("YYYY-MM-DD") });
+      return editTask({ ...task, dueDate: pickedDate.format("YYYY-MM-DD") });
   };
 
   return (
     <div>
       <h1>Recur</h1>
-      <DatePicker date={date} setDate={setDate} />
-      <h2>Tasks:</h2>
-      <ul>
-        {Object.values(tasks)
-          .sort((a, b) => dayjs(a.dueDate).unix() - dayjs(b.dueDate).unix())
-          .map((task) => (
-            <TaskComponent
-              key={task.id}
-              task={task}
-              logTask={logTask}
-              editTask={setEditTask}
-              deleteTask={deleteTask}
-            />
-          ))}
-      </ul>
-      <hr></hr>
-      {editTask ? (
-        <TaskForm task={editTask} saveTask={saveTask} />
-      ) : (
-        <button
-          onClick={() =>
-            setEditTask({ ...defaultTask, id: crypto.randomUUID() })
-          }
-        >
-          New task
-        </button>
+      {view.name === "tasks" && (
+        <>
+          <div>
+            <button onClick={() => setView({ name: "tasks" })}>Tasks</button>
+            <button onClick={() => setView({ name: "log" })}>Log</button>
+          </div>
+          <h2>Tasks:</h2>
+          <ul>
+            {Object.values(tasks)
+              .sort((a, b) => dayjs(a.dueDate).unix() - dayjs(b.dueDate).unix())
+              .map((task) => (
+                <TaskComponent
+                  key={task.id}
+                  task={task}
+                  logTask={logTask}
+                  editTask={setEditTask}
+                  deleteTask={deleteTask}
+                />
+              ))}
+          </ul>
+          <button
+            onClick={() =>
+              setEditTask({ ...defaultTask, id: crypto.randomUUID() })
+            }
+          >
+            New task
+          </button>
+        </>
       )}
-      <hr></hr>
-      <h2>Log</h2>
-      <ul>
-        {log.map((entry) => (
-          <li key={entry.id}>
-            {entry.title} {entry.date}
-          </li>
-        ))}
-      </ul>
+      {view.name === "edit" && (
+        <TaskForm task={view.task} saveTask={saveTask} />
+      )}
+      {view.name === "log" && (
+        <>
+          <div>
+            <button onClick={() => setView({ name: "tasks" })}>Tasks</button>
+            <button onClick={() => setView({ name: "log" })}>Log</button>
+          </div>
+          <h2>Log</h2>
+          <DatePicker date={date} setDate={setDate} />
+          <ul>
+            {log.map((entry) => (
+              <li key={entry.id}>
+                {entry.title} {entry.date}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
