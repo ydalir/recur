@@ -29,7 +29,7 @@ type EditView = {
 export type View = TaskView | LogView | EditView;
 
 export const App = () => {
-  const [view, setView] = useState<View>({ name: "tasks" });
+  const [view, setView] = useState<View>({ name: "log" });
 
   const [tasks, setTasks] = useState<Record<string, Task>>(mockTaskRecord);
   const setEditTask = (task: Task) => {
@@ -81,28 +81,11 @@ export const App = () => {
   return (
     <div>
       <h1>Recur</h1>
-      {view.name === "tasks" && (
-        <>
-          <div>
-            <button onClick={() => setView({ name: "tasks" })}>Tasks</button>
-            <button onClick={() => setView({ name: "log" })}>Log</button>
-          </div>
-          <TasksPage
-            tasks={Object.values(tasks)}
-            logTask={logTask}
-            setEditTask={setEditTask}
-            deleteTask={deleteTask}
-          />
-        </>
-      )}
-      {view.name === "edit" && (
-        <TaskForm task={view.task} saveTask={saveTask} />
-      )}
       {view.name === "log" && (
         <>
           <div>
-            <button onClick={() => setView({ name: "tasks" })}>Tasks</button>
             <button onClick={() => setView({ name: "log" })}>Log</button>
+            <button onClick={() => setView({ name: "tasks" })}>Tasks</button>
           </div>
           <h2>Log</h2>
           <DatePicker date={date} setDate={setDate} />
@@ -114,6 +97,23 @@ export const App = () => {
             ))}
           </ul>
         </>
+      )}
+      {view.name === "tasks" && (
+        <>
+          <div>
+            <button onClick={() => setView({ name: "log" })}>Log</button>
+            <button onClick={() => setView({ name: "tasks" })}>Tasks</button>
+          </div>
+          <TasksPage
+            tasks={Object.values(tasks)}
+            logTask={logTask}
+            setEditTask={setEditTask}
+            deleteTask={deleteTask}
+          />
+        </>
+      )}
+      {view.name === "edit" && (
+        <TaskForm task={view.task} saveTask={saveTask} />
       )}
     </div>
   );

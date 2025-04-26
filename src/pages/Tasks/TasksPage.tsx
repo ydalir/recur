@@ -31,7 +31,7 @@ export const TasksPage: FC<Props> = ({
           checked={showAll}
           onChange={() => setShowAll((prev) => !prev)}
         />{" "}
-        Vis alle
+        Show all
       </label>
       <ul>
         {Object.values(tasks)
