@@ -1,14 +1,10 @@
 import dayjs from "dayjs";
-import { Task, TaskComponent } from "./Task";
+import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { useState } from "react";
 import { DatePicker } from "./DatePicker";
-
-const defaultTask: Omit<Task, "id"> = {
-  title: "",
-  dueDate: dayjs().format("YYYY-MM-DD"),
-  interval: null,
-};
+import { mockTaskRecord } from "./mock";
+import { TasksPage } from "./pages/Tasks/TasksPage";
 
 type LogEntry = {
   id: string;
@@ -35,7 +31,7 @@ export type View = TaskView | LogView | EditView;
 export const App = () => {
   const [view, setView] = useState<View>({ name: "tasks" });
 
-  const [tasks, setTasks] = useState<Record<string, Task>>({});
+  const [tasks, setTasks] = useState<Record<string, Task>>(mockTaskRecord);
   const setEditTask = (task: Task) => {
     setView({ name: "edit", task });
   };
@@ -91,27 +87,12 @@ export const App = () => {
             <button onClick={() => setView({ name: "tasks" })}>Tasks</button>
             <button onClick={() => setView({ name: "log" })}>Log</button>
           </div>
-          <h2>Tasks:</h2>
-          <ul>
-            {Object.values(tasks)
-              .sort((a, b) => dayjs(a.dueDate).unix() - dayjs(b.dueDate).unix())
-              .map((task) => (
-                <TaskComponent
-                  key={task.id}
-                  task={task}
-                  logTask={logTask}
-                  editTask={setEditTask}
-                  deleteTask={deleteTask}
-                />
-              ))}
-          </ul>
-          <button
-            onClick={() =>
-              setEditTask({ ...defaultTask, id: crypto.randomUUID() })
-            }
-          >
-            New task
-          </button>
+          <TasksPage
+            tasks={Object.values(tasks)}
+            logTask={logTask}
+            setEditTask={setEditTask}
+            deleteTask={deleteTask}
+          />
         </>
       )}
       {view.name === "edit" && (

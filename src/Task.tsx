@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { FC } from "react";
 
 export type Task = {
@@ -20,9 +21,14 @@ export const TaskComponent: FC<Props> = ({
   deleteTask,
   task,
 }) => {
+  const dueDate = dayjs(task.dueDate);
+  const notDue = dueDate.isAfter(dayjs(), "day");
+
   return (
     <li>
-      {task.title} Due {task.dueDate}
+      {task.title}
+      {notDue && <> Due in {dueDate.diff(dayjs(), "days")} days</>}
+      {task.dueDate === null && " Completed"}
       <button onClick={() => logTask(task)}>Log</button>
       <button onClick={() => editTask(task)}>Edit</button>
       <button onClick={() => deleteTask(task)}>Delete</button>
