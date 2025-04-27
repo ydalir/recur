@@ -1,61 +1,23 @@
-import { FC, useState } from "react";
-import { Task, TaskComponent } from "../../Task";
-import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { DBTask } from "../../utils/task";
+import { getTasks } from "../../utils/idb";
 
-const defaultTask: Omit<Task, "id"> = {
-  title: "",
-  dueDate: dayjs().format("YYYY-MM-DD"),
-  interval: null,
-};
+export const TasksPage = () => {
+  const [tasks, setTasks] = useState<DBTask[]>();
 
-type Props = {
-  tasks: Task[];
-  logTask: (task: Task) => void;
-  setEditTask: (task: Task) => void;
-  deleteTask: (task: Task) => void;
-};
+  useEffect(() => {
+    getTasks().then((tasks) => {
+      setTasks(Object.values(tasks));
+    });
+  }, []);
 
-export const TasksPage: FC<Props> = ({
-  tasks,
-  logTask,
-  setEditTask,
-  deleteTask,
-}) => {
-  const [showAll, setShowAll] = useState<boolean>(false);
+  if (!tasks) return "Loading";
+
   return (
     <div>
-      <h2>Tasks:</h2>
-      <label>
-        <input
-          type="checkbox"
-          checked={showAll}
-          onChange={() => setShowAll((prev) => !prev)}
-        />{" "}
-        Show all
-      </label>
-      <ul>
-        {Object.values(tasks)
-          .filter(
-            (task) =>
-              showAll ||
-              (!dayjs(task.dueDate).isAfter(dayjs(), "day") && task.dueDate)
-          )
-          .sort((a, b) => dayjs(a.dueDate).unix() - dayjs(b.dueDate).unix())
-          .map((task) => (
-            <TaskComponent
-              key={task.id}
-              task={task}
-              logTask={logTask}
-              editTask={setEditTask}
-              deleteTask={deleteTask}
-            />
-          ))}
-      </ul>
-      <button
-        onClick={() => setEditTask({ ...defaultTask, id: crypto.randomUUID() })}
-      >
-        New task
-      </button>
+      {tasks.map((task) => (
+        <div key={task.id}>{task.title}</div>
+      ))}
     </div>
   );
 };

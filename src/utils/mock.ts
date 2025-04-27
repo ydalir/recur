@@ -1,13 +1,13 @@
 import dayjs, { Dayjs } from "dayjs";
-import { Task } from "./Task";
+import { DBTask } from "./task";
 
 const formatDay = (day: Dayjs) => day.format("YYYY-MM-DD");
 
-const generateTask = (partialTask: Omit<Task, "id">): Task => {
+const generateTask = (partialTask: Omit<DBTask, "id">): DBTask => {
   return { ...partialTask, id: crypto.randomUUID() };
 };
 
-const mockTasks: Task[] = [
+const mockTasks: DBTask[] = [
   generateTask({
     dueDate: formatDay(dayjs()),
     interval: 1,
@@ -35,6 +35,6 @@ const mockTasks: Task[] = [
   }),
 ];
 
-export const mockTaskRecord: Record<string, Task> = mockTasks.reduce((acc, task) => {
+export const mockTaskRecord: Record<string, DBTask> = mockTasks.reduce((acc, task) => {
   return { ...acc, [task.id]: task };
 }, {});

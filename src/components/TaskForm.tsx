@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
-import { Task } from "./Task";
+import { DBTask } from "../utils/task";
 import dayjs from "dayjs";
 
 type Props = {
-  task: Task;
-  saveTask: (task: Task) => void;
+  task: DBTask;
+  saveTask: (task: DBTask) => void;
 };
 
 export const TaskForm: FC<Props> = ({ task, saveTask }) => {
