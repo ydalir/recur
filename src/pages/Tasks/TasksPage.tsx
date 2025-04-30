@@ -20,7 +20,6 @@ export const TasksPage = () => {
         <div key={task.id}>{task.title}</div>
       ))}
       <Link to="edit">Add task</Link>
-      <Link to="/">Log</Link>
     </div>
   );
 };
