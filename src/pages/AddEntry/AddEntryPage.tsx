@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { formatDate } from "../../utils/date";
 import { useEffect, useState } from "react";
 import { DBTask } from "../../utils/task";
@@ -38,6 +38,7 @@ export const AddEntryPage = () => {
           </button>
         </div>
       ))}
+      <Link to={{ pathname: "/", hash: formatDate(date) }}>Back</Link>
     </div>
   );
 };

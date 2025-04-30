@@ -25,7 +25,8 @@ export const HomePage = () => {
       {entries.map((entry) => (
         <div key={entry.id}>{entry.title}</div>
       ))}
-      <Link to={`entry/${formatDate(date)}/add`}>Log</Link>
+      <Link to={`entry/${formatDate(date)}/add`}>Log task</Link>
+      <Link to={`tasks`}>Tasks</Link>
     </div>
   );
 };

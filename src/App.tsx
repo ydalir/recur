@@ -10,8 +10,9 @@ export const App = () => {
       <Route path={"/"} element={<HomePage />} />
       <Route path={"entry/:date/add"} element={<AddEntryPage />} />
 
-      <Route path={"tasks"} element={<TasksPage />}>
-        <Route path={":taskId?/edit"} element={<EditTaskPage />} />
+      <Route path={"tasks"}>
+        <Route index element={<TasksPage />} />
+        <Route path={"edit/:taskId?"} element={<EditTaskPage />} />
       </Route>
     </Routes>
   );

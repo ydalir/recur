@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { DBTask } from "../../utils/task";
 import { getTasks } from "../../utils/idb";
+import { Link } from "react-router";
 
 export const TasksPage = () => {
   const [tasks, setTasks] = useState<DBTask[]>();
@@ -18,6 +19,8 @@ export const TasksPage = () => {
       {tasks.map((task) => (
         <div key={task.id}>{task.title}</div>
       ))}
+      <Link to="edit">Add task</Link>
+      <Link to="/">Log</Link>
     </div>
   );
 };

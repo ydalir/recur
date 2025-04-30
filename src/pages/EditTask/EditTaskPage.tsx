@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { getTask, updateTask } from "../../utils/idb";
 import { DBTask, defaultTask } from "../../utils/task";
 import { TaskForm } from "../../components/TaskForm";
@@ -26,5 +26,10 @@ export const EditTaskPage = () => {
 
   if (!task) return "Loading";
 
-  return <TaskForm task={task} saveTask={saveTask} />;
+  return (
+    <div>
+      <TaskForm task={task} saveTask={saveTask} />
+      <Link to={".."}>Back</Link>
+    </div>
+  );
 };
