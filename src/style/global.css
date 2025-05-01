@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  font-family: "JetBrainsMono NFM", "Inconsolata", "Monaco", "Consolas",
-    "Courier New", "Courier", monospace;
+  font-family: "JetBrainsMono NFM", "Roboto Mono", "Ubuntu Mono", "Inconsolata",
+    "Monaco", "Consolas", "Courier New", "Courier", monospace;
   font-size: 1rem;
 }
 
