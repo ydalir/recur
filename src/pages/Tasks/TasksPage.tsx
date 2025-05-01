@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { DBTask } from "../../utils/task";
 import { getTasks } from "../../utils/idb";
 import { Link } from "react-router";
+import { LinkButton } from "../../components/Button/LinkButton";
+import style from "./TasksPage.module.css";
 
 export const TasksPage = () => {
   const [tasks, setTasks] = useState<DBTask[]>();
@@ -15,13 +17,17 @@ export const TasksPage = () => {
   if (!tasks) return "Loading";
 
   return (
-    <div>
-      {tasks.map((task) => (
-        <div key={task.id}>
-          {task.title} <Link to={`edit/${task.id}`}>Edit</Link>
-        </div>
-      ))}
-      <Link to="edit">Add task</Link>
+    <div className={style.tasksPage}>
+      <div className={style.tasksContainer}>
+        {tasks.map((task) => (
+          <div key={task.id}>
+            {task.title} <Link to={`edit/${task.id}`}>Edit</Link>
+          </div>
+        ))}
+      </div>
+      <LinkButton className={style.addButton} to="edit">
+        +
+      </LinkButton>
     </div>
   );
 };

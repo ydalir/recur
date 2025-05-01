@@ -1,7 +1,7 @@
 .button {
   appearance: none;
 
-  display: block;
+  display: inline-block;
   text-align: center;
   cursor: pointer;
   background-color: var(--gray);
