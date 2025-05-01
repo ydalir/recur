@@ -4,8 +4,9 @@ import { DatePicker } from "../../components/DatePicker";
 import { LogEntry } from "../../utils/logEntry";
 import { getEntriesForDate } from "../../utils/idb";
 import { formatDate } from "../../utils/date";
-import { Link, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import style from "./HomePage.module.css";
+import { LinkButton } from "../../components/Button/LinkButton";
 
 export const HomePage = () => {
   const location = useLocation();
@@ -23,10 +24,17 @@ export const HomePage = () => {
   return (
     <div className={style.homepage}>
       <DatePicker date={date} setDate={setDate} />
-      {entries.map((entry) => (
-        <div key={entry.id}>{entry.title}</div>
-      ))}
-      <Link to={`entry/${formatDate(date)}/add`}>Log task</Link>
+      <div className={style.entriesContainer}>
+        {entries.map((entry) => (
+          <div key={entry.id}>{entry.title}</div>
+        ))}
+      </div>
+      <LinkButton
+        className={style.addButton}
+        to={`entry/${formatDate(date)}/add`}
+      >
+        +
+      </LinkButton>
     </div>
   );
 };

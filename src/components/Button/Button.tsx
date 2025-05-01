@@ -6,7 +6,10 @@ type Props = {} & HTMLAttributes<HTMLButtonElement>;
 
 export const Button: FC<Props> = ({ className, children, ...props }) => {
   return (
-    <button className={clsx(style.button, className)} {...props}>
+    <button
+      className={clsx(style.button, className)}
+      {...props}
+    >
       {children}
     </button>
   );

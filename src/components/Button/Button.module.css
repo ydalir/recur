@@ -1,9 +1,19 @@
 .button {
   appearance: none;
 
+  display: block;
+  text-align: center;
+  cursor: pointer;
   background-color: var(--gray);
   border: none;
   padding: 0.25rem;
   min-width: 4rem;
   font-size: 1.5rem;
+}
+
+.linkButton {
+  text-decoration: none;
+  &:visited {
+    color: currentColor;
+  }
 }
