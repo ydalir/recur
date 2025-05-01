@@ -1,5 +1,6 @@
 .datePicker {
   display: flex;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 0 0.5rem;
 }
