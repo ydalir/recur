@@ -5,6 +5,7 @@ import { LogEntry } from "../../utils/logEntry";
 import { getEntriesForDate } from "../../utils/idb";
 import { formatDate } from "../../utils/date";
 import { Link, useLocation } from "react-router";
+import style from "./HomePage.module.css";
 
 export const HomePage = () => {
   const location = useLocation();
@@ -20,7 +21,7 @@ export const HomePage = () => {
   if (!entries) return "Loading";
 
   return (
-    <div>
+    <div className={style.homepage}>
       <DatePicker date={date} setDate={setDate} />
       {entries.map((entry) => (
         <div key={entry.id}>{entry.title}</div>

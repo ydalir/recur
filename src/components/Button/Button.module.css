@@ -1,0 +1,9 @@
+.button {
+  appearance: none;
+
+  background-color: var(--gray);
+  border: none;
+  padding: 0.25rem;
+  min-width: 4rem;
+  font-size: 1.5rem;
+}

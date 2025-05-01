@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import { FC } from "react";
+import { Button } from "./Button/Button";
+import style from "./DatePicker.module.css";
 
 type Props = {
   date: dayjs.Dayjs;
@@ -8,14 +10,14 @@ type Props = {
 
 export const DatePicker: FC<Props> = ({ date, setDate }) => {
   return (
-    <div>
-      <button onClick={() => setDate((prev) => prev.add(-1, "day"))}>
-        Prev
-      </button>
-      {date.format("YYYY-MM-DD")}
-      <button onClick={() => setDate((prev) => prev.add(1, "day"))}>
-        Next
-      </button>
+    <div className={style.datePicker}>
+      <Button onClick={() => setDate((prev) => prev.add(-1, "day"))}>
+        {"←"}
+      </Button>
+      <h2>{date.format("YYYY-MM-DD")}</h2>
+      <Button onClick={() => setDate((prev) => prev.add(1, "day"))}>
+        {"→"}
+      </Button>
     </div>
   );
 };
