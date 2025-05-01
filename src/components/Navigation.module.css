@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--gray);
+}
+
+.nav {
+  height: 100%;
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.nav a {
+  padding: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+
+  &:visited {
+    color: inherit;
+  }
+
+  &[aria-current="page"] {
+    outline: 1px solid currentColor;
+  }
+}
