@@ -17,7 +17,9 @@ export const TasksPage = () => {
   return (
     <div>
       {tasks.map((task) => (
-        <div key={task.id}>{task.title}</div>
+        <div key={task.id}>
+          {task.title} <Link to={`edit/${task.id}`}>Edit</Link>
+        </div>
       ))}
       <Link to="edit">Add task</Link>
     </div>
