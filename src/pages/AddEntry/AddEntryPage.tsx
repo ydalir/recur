@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { formatDate } from "../../utils/date";
 import { useEffect, useState } from "react";
 import { DBTask } from "../../utils/task";
 import { addEntry, getTasks } from "../../utils/idb";
+import { LinkButton } from "../../components/Button/LinkButton";
 
 export const AddEntryPage = () => {
   const params = useParams();
@@ -38,7 +39,12 @@ export const AddEntryPage = () => {
           </button>
         </div>
       ))}
-      <Link to={{ pathname: "/", hash: formatDate(date) }}>Back</Link>
+      <LinkButton
+        to={{ pathname: "/", hash: formatDate(date) }}
+        variant="secondary"
+      >
+        Back
+      </LinkButton>
     </div>
   );
 };
