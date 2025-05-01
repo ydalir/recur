@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { formatDate } from "./date";
 
 type BaseTask = {
   id: string;
@@ -13,6 +14,20 @@ export type DBTask = {
 export type Task = {
   dueDate: dayjs.Dayjs | null;
 } & BaseTask;
+
+export const toDBTask = (task: Task): DBTask => {
+  return {
+    ...task,
+    dueDate: task.dueDate === null ? null : formatDate(task.dueDate),
+  };
+};
+
+export const toTask = (task: DBTask): Task => {
+  return {
+    ...task,
+    dueDate: task.dueDate === null ? null : dayjs(task.dueDate),
+  };
+};
 
 export const defaultTask = (): DBTask => ({
   title: "",
