@@ -13,6 +13,17 @@
   }
 }
 
+.taskButton {
+  background-color: var(--light-gray);
+  font-size: 1rem;
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: start;
+}
+
 .dueInfoContainer {
   display: flex;
   flex-direction: column;
@@ -25,6 +36,8 @@
   border: 1px solid currentColor;
   width: fit-content;
   padding: 0.5rem;
+  white-space: nowrap;
+  height: fit-content;
 }
 
 .dueNow {

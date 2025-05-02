@@ -4,6 +4,7 @@ import style from "./Task.module.css";
 import { Link } from "react-router";
 import dayjs, { Dayjs } from "dayjs";
 import clsx from "clsx";
+import { Button } from "../Button/Button";
 
 type Props = {
   task: Task;
@@ -43,5 +44,20 @@ export const TaskComponent: FC<Props> = ({ task }) => {
         <span>⟲ {recurs}</span>
       </div>
     </Link>
+  );
+};
+
+export const TaskButton: FC<Props & { onClick: () => void }> = ({
+  task,
+  onClick,
+}) => {
+  const [, dueStyle] = formatDueDate(task.dueDate);
+  return (
+    <Button className={style.taskButton} onClick={onClick}>
+      <span>{task.title}</span>
+      <div className={style.dueInfoContainer}>
+        <span className={clsx(style.due, dueStyle)}></span>
+      </div>
+    </Button>
   );
 };
