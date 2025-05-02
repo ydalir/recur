@@ -8,5 +8,5 @@
         }
     ],
     "start_url": "https://ydalir.github.io/recur/",
-    "display": "minimal-ui"
+    "display": "standalone"
 }
