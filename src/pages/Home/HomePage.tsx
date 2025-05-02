@@ -25,11 +25,12 @@ export const HomePage = () => {
   return (
     <div className={style.homepage}>
       <DatePicker date={date} setDate={setDate} />
-      <ul className={style.entriesContainer}>
+      <div className={style.entriesContainer}>
+        {!entries.length && "No entries"}
         {entries.map((entry) => (
           <EntryComponent entry={entry} key={entry.id} />
         ))}
-      </ul>
+      </div>
       <LinkButton
         className={style.addButton}
         to={`entry/${formatDate(date)}/add`}
