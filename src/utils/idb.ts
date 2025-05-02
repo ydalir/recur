@@ -57,7 +57,7 @@ export const addEntry = async (entry: LogEntry, task: Task) => {
     entry,
   ]);
 
-  const dbTask = toDBTask(updateDueDate(task));
+  const dbTask = toDBTask(updateDueDate(task, entry.date));
 
   await updateTask(dbTask);
 };

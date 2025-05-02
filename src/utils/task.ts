@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { formatDate, today } from "./date";
+import { formatDate } from "./date";
 
 type BaseTask = {
   id: string;
@@ -29,12 +29,19 @@ export const toTask = (dbTask: DBTask): Task => {
   };
 };
 
-export const updateDueDate = (task: Task): Task => {
+export const updateDueDate = (task: Task, date: string): Task => {
   if (task.interval === null) return { ...task, dueDate: null };
 
-  const dueDate = task.dueDate ?? today();
+  const offsetLogDate = dayjs(date).add(task.interval, "days");
 
-  return { ...task, dueDate: dueDate.add(task.interval, "days") };
+  if (!task.dueDate) return { ...task, dueDate: offsetLogDate };
+
+  return {
+    ...task,
+    dueDate: task.dueDate.isAfter(offsetLogDate, "days")
+      ? task.dueDate
+      : offsetLogDate,
+  };
 };
 
 export const defaultTask = (): DBTask => ({
