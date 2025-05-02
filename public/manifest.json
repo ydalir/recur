@@ -1,0 +1,12 @@
+{
+    "name": "Recur",
+    "icons": [
+        {
+            "src": "icon.svg",
+            "type": "image/svg+xml",
+            "sizes": "256x256"
+        }
+    ],
+    "start_url": "http://localhost:5173/recur/",
+    "display": "minimal-ui"
+}
