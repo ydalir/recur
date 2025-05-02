@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getTask, updateTask } from "../../utils/idb";
 import { DBTask, defaultTask } from "../../utils/task";
-import { TaskForm } from "../../components/TaskForm";
+import { TaskForm } from "../../components/TaskForm/TaskForm";
+import style from "./EditTaskPage.module.css";
 
 export const EditTaskPage = () => {
   const params = useParams();
@@ -27,9 +28,8 @@ export const EditTaskPage = () => {
   if (!task) return "Loading";
 
   return (
-    <div>
+    <div className={style.editTaskPage}>
       <TaskForm task={task} saveTask={saveTask} />
-      <Link to={".."}>Back</Link>
     </div>
   );
 };

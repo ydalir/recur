@@ -41,7 +41,7 @@
 }
 
 .dueNow {
-  background-color: #c8e99f;
+  background-color: var(--light-green);
 }
 
 .dueLater {

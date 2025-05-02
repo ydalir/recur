@@ -18,6 +18,10 @@
   border: 2px dashed currentColor;
 }
 
+.success {
+  background-color: var(--light-green);
+}
+
 .warning {
   background-color: rgb(255, 164, 164);
 }
