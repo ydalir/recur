@@ -7,6 +7,7 @@ import { formatDate } from "../../utils/date";
 import { useLocation } from "react-router";
 import style from "./HomePage.module.css";
 import { LinkButton } from "../../components/Button/LinkButton";
+import { EntryComponent } from "../../components/Entry/Entry";
 
 export const HomePage = () => {
   const location = useLocation();
@@ -24,11 +25,11 @@ export const HomePage = () => {
   return (
     <div className={style.homepage}>
       <DatePicker date={date} setDate={setDate} />
-      <div className={style.entriesContainer}>
+      <ul className={style.entriesContainer}>
         {entries.map((entry) => (
-          <div key={entry.id}>{entry.title}</div>
+          <EntryComponent entry={entry} key={entry.id} />
         ))}
-      </div>
+      </ul>
       <LinkButton
         className={style.addButton}
         to={`entry/${formatDate(date)}/add`}

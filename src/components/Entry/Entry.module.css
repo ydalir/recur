@@ -1,0 +1,16 @@
+.entry {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid currentColor;
+  border-top: 1px solid currentColor;
+  text-align: center;
+}
+
+.cross {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ff0000;
+  text-decoration: none;
+}
