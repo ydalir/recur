@@ -4,6 +4,7 @@ import { EditTaskPage } from "./pages/EditTask/EditTaskPage";
 import { TasksPage } from "./pages/Tasks/TasksPage";
 import { AddEntryPage } from "./pages/AddEntry/AddEntryPage";
 import { Navigation } from "./components/Navigation";
+import { DeleteEntryPage } from "./pages/DeleteEntry/DeleteEntryPage";
 
 export const App = () => {
   return (
@@ -11,6 +12,7 @@ export const App = () => {
       <Route element={<Navigation />}>
         <Route path={"/"} element={<HomePage />} />
         <Route path={"entry/:date/add"} element={<AddEntryPage />} />
+        <Route path={"entry/:entryId/delete"} element={<DeleteEntryPage />} />
 
         <Route path={"tasks"}>
           <Route index element={<TasksPage />} />

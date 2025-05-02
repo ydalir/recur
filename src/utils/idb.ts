@@ -23,6 +23,11 @@ export const updateTask = async (task: DBTask) => {
   });
 };
 
+export const getEntry = async (id: string): Promise<LogEntry | null> => {
+  const entries = await getEntries();
+  return entries.find((entry) => entry.id === id) ?? null;
+};
+
 const getEntries = async (): Promise<LogEntry[]> => {
   return get(entriesKey).then((entries) => entries ?? []);
 };
@@ -44,4 +49,10 @@ export const addEntry = async (entry: LogEntry, task: Task) => {
   const dbTask = toDBTask(updateDueDate(task));
 
   await updateTask(dbTask);
+};
+
+export const deleteEntry = async (id: string) => {
+  await update<LogEntry[]>(entriesKey, (entries) =>
+    (entries ?? []).filter((entry) => entry.id !== id)
+  );
 };

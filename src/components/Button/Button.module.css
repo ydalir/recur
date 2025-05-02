@@ -18,6 +18,10 @@
   border: 2px dashed currentColor;
 }
 
+.warning {
+  background-color: rgb(255, 164, 164);
+}
+
 .linkButton {
   text-decoration: none;
   &:visited {
