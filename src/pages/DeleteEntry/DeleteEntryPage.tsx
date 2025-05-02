@@ -31,14 +31,14 @@ export const DeleteEntryPage = () => {
           variant="warning"
           onClick={() => {
             deleteEntry(entry.id).then(() =>
-              navigate({ pathname: "..", hash: entry.date })
+              navigate("..")
             );
           }}
         >
           Delete
         </Button>
         <LinkButton
-          to={{ pathname: "..", hash: entry.date }}
+          to={".."}
           variant="secondary"
         >
           Cancel

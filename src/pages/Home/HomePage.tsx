@@ -3,17 +3,13 @@ import { useEffect, useState } from "react";
 import { DatePicker } from "../../components/DatePicker";
 import { LogEntry } from "../../utils/logEntry";
 import { getEntriesForDate } from "../../utils/idb";
-import { formatDate } from "../../utils/date";
-import { useLocation } from "react-router";
+import { formatDate, today } from "../../utils/date";
 import style from "./HomePage.module.css";
 import { LinkButton } from "../../components/Button/LinkButton";
 import { EntryComponent } from "../../components/Entry/Entry";
 
 export const HomePage = () => {
-  const location = useLocation();
-  const [date, setDate] = useState<dayjs.Dayjs>(
-    dayjs(location.hash.replace("#", "") || undefined)
-  );
+  const [date, setDate] = useState<dayjs.Dayjs>(today());
   const [entries, setEntries] = useState<LogEntry[]>();
 
   useEffect(() => {
