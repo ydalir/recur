@@ -5,6 +5,7 @@ import { TasksPage } from "./pages/Tasks/TasksPage";
 import { AddEntryPage } from "./pages/AddEntry/AddEntryPage";
 import { Navigation } from "./components/Navigation";
 import { DeleteEntryPage } from "./pages/DeleteEntry/DeleteEntryPage";
+import { DeleteTaskPage } from "./pages/DeleteTask/DeleteTaskPage";
 
 export const App = () => {
   return (
@@ -17,6 +18,7 @@ export const App = () => {
         <Route path={"tasks"}>
           <Route index element={<TasksPage />} />
           <Route path={"edit/:taskId?"} element={<EditTaskPage />} />
+          <Route path={"delete/:taskId"} element={<DeleteTaskPage />} />
         </Route>
       </Route>
     </Routes>

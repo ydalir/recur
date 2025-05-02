@@ -23,6 +23,17 @@ export const updateTask = async (task: DBTask) => {
   });
 };
 
+export const deleteTask = async (taskId: string) => {
+  await update<Record<string, DBTask>>(tasksKey, (tasks) => {
+    if (!tasks) return {};
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { [taskId]: _, ...rest } = tasks;
+
+    return rest;
+  });
+};
+
 export const getEntry = async (id: string): Promise<LogEntry | null> => {
   const entries = await getEntries();
   return entries.find((entry) => entry.id === id) ?? null;

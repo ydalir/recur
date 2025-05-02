@@ -8,9 +8,10 @@ import { Button } from "../Button/Button";
 type Props = {
   task: DBTask;
   saveTask: (task: DBTask) => void;
+  existingTask: boolean;
 };
 
-export const TaskForm: FC<Props> = ({ task, saveTask }) => {
+export const TaskForm: FC<Props> = ({ task, saveTask, existingTask }) => {
   const [title, setTitle] = useState(task.title);
 
   const [dueDate, setDueDate] = useState<string>(task.dueDate ?? "");
@@ -78,10 +79,16 @@ export const TaskForm: FC<Props> = ({ task, saveTask }) => {
         >
           Save
         </Button>
-        <LinkButton to={".."} variant="secondary">
-          Cancel
-        </LinkButton>
+
+        {existingTask && (
+          <LinkButton to={`../delete/${task.id}`} variant="warning">
+            Delete
+          </LinkButton>
+        )}
       </div>
+      <LinkButton to={".."} variant="secondary">
+        Cancel
+      </LinkButton>
     </div>
   );
 };

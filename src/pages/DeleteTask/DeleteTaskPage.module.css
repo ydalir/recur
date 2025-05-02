@@ -1,0 +1,15 @@
+.deleteTaskPage {
+  padding: 1rem 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 2rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-evenly;
+}

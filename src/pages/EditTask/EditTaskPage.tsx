@@ -29,7 +29,11 @@ export const EditTaskPage = () => {
 
   return (
     <div className={style.editTaskPage}>
-      <TaskForm task={task} saveTask={saveTask} />
+      <TaskForm
+        task={task}
+        saveTask={saveTask}
+        existingTask={Boolean(taskId)}
+      />
     </div>
   );
 };
