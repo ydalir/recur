@@ -55,12 +55,15 @@ export const AddEntryPage = () => {
             key={task.id}
             task={task}
             onClick={() => {
-              addEntry({
-                date: formatDate(date),
-                id: crypto.randomUUID(),
-                taskId: task.id,
-                title: task.title,
-              }).then(() => {
+              addEntry(
+                {
+                  date: formatDate(date),
+                  id: crypto.randomUUID(),
+                  taskId: task.id,
+                  title: task.title,
+                },
+                task
+              ).then(() => {
                 navigate({ pathname: "/", hash: formatDate(date) });
               });
             }}

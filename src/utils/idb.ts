@@ -1,5 +1,5 @@
 import { get, update } from "idb-keyval";
-import { DBTask } from "./task";
+import { DBTask, Task, toDBTask, updateDueDate } from "./task";
 import { LogEntry } from "./logEntry";
 import dayjs from "dayjs";
 
@@ -18,7 +18,7 @@ export const getTask = async (key: string): Promise<DBTask> => {
 };
 
 export const updateTask = async (task: DBTask) => {
-  update<Record<string, DBTask>>(tasksKey, (tasks) => {
+  await update<Record<string, DBTask>>(tasksKey, (tasks) => {
     return { ...tasks, [task.id]: task };
   });
 };
@@ -35,6 +35,13 @@ export const getEntriesForDate = async (
   return entries.filter((entry) => entry.date === dateString);
 };
 
-export const addEntry = async (entry: LogEntry) => {
-  update<LogEntry[]>(entriesKey, (entries) => [...(entries ?? []), entry]);
+export const addEntry = async (entry: LogEntry, task: Task) => {
+  await update<LogEntry[]>(entriesKey, (entries) => [
+    ...(entries ?? []),
+    entry,
+  ]);
+
+  const dbTask = toDBTask(updateDueDate(task));
+
+  await updateTask(dbTask);
 };

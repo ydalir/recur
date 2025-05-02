@@ -2,9 +2,10 @@ import { FC } from "react";
 import { Task } from "../../utils/task";
 import style from "./Task.module.css";
 import { Link } from "react-router";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import clsx from "clsx";
 import { Button } from "../Button/Button";
+import { today } from "../../utils/date";
 
 type Props = {
   task: Task;
@@ -12,7 +13,7 @@ type Props = {
 
 const formatDueDate = (date: Dayjs | null): [string, string | undefined] => {
   if (date === null) return ["No due date", style.dueNever];
-  const now = dayjs();
+  const now = today();
 
   if (date.isBefore(now, "day") || date.isSame(now, "day"))
     return ["Due now", style.dueNow];

@@ -2,7 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { FC } from "react";
 import { Button } from "./Button/Button";
 import style from "./DatePicker.module.css";
-import { formatDate } from "../utils/date";
+import { formatDate, today } from "../utils/date";
 
 type Props = {
   date: dayjs.Dayjs;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const dateDisplay = (date: Dayjs): string => {
-  const now = dayjs();
+  const now = today();
 
   if (date.isSame(now, "day")) return "Today";
   if (date.isSame(now.add(1, "d"), "day")) return "Tomorrow";

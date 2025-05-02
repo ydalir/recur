@@ -8,3 +8,5 @@ export const sortDates = (a: Dayjs | null, b: Dayjs | null): number => {
 
   return a.diff(b);
 };
+
+export const today = () => dayjs().startOf("day");
