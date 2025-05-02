@@ -6,6 +6,8 @@
   border-bottom: 1px solid currentColor;
   border-top: 1px solid currentColor;
   text-align: center;
+
+  padding: 0 0.5rem;
 }
 
 .cross {
