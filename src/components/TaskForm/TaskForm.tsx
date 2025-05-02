@@ -41,7 +41,7 @@ export const TaskForm: FC<Props> = ({ task, saveTask, existingTask }) => {
       </label>
       <label>
         Interval
-        <span>
+        <span className={style.intervalInputs}>
           <input
             type="number"
             value={shouldRecur ? interval : ""}
