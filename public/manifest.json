@@ -7,6 +7,6 @@
             "sizes": "256x256"
         }
     ],
-    "start_url": "http://localhost:5173/recur/",
+    "start_url": "https://ydalir.github.io/recur/",
     "display": "minimal-ui"
 }
