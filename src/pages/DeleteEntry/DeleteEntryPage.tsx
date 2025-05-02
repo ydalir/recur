@@ -31,7 +31,7 @@ export const DeleteEntryPage = () => {
           variant="warning"
           onClick={() => {
             deleteEntry(entry.id).then(() =>
-              navigate({ pathname: "/", hash: entry.date })
+              navigate({ pathname: "..", hash: entry.date })
             );
           }}
         >

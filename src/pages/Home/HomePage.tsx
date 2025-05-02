@@ -31,10 +31,7 @@ export const HomePage = () => {
           <EntryComponent entry={entry} key={entry.id} />
         ))}
       </div>
-      <LinkButton
-        className={style.addButton}
-        to={`entry/${formatDate(date)}/add`}
-      >
+      <LinkButton className={style.addButton} to={`add/${formatDate(date)}`}>
         +
       </LinkButton>
     </div>

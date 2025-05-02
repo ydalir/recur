@@ -64,14 +64,14 @@ export const AddEntryPage = () => {
                 },
                 task
               ).then(() => {
-                navigate({ pathname: "/", hash: formatDate(date) });
+                navigate({ pathname: "..", hash: formatDate(date) });
               });
             }}
           />
         ))}
       </div>
       <LinkButton
-        to={{ pathname: "/", hash: formatDate(date) }}
+        to={{ pathname: "..", hash: formatDate(date) }}
         variant="secondary"
       >
         Cancel

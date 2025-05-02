@@ -12,7 +12,7 @@ export const EntryComponent: FC<Props> = ({ entry }) => {
     <span className={style.entry}>
       <span>»</span>
       <span>{entry.title}</span>
-      <Link to={`/entry/${entry.id}/delete`} className={style.cross}>
+      <Link to={`delete/${entry.id}`} className={style.cross}>
         x
       </Link>
     </span>
