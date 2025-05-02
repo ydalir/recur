@@ -1,5 +1,6 @@
 .homepage {
   padding: 1rem 0.5rem;
+  padding-bottom: 0;
 }
 
 .entriesContainer {
@@ -12,4 +13,6 @@
 .addButton {
   font-size: 2.5rem;
   width: 100%;
+  position: sticky;
+  bottom: 1rem;
 }

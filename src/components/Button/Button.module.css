@@ -12,6 +12,7 @@
 
 .primary {
   background-color: var(--gray);
+  outline: 2px solid rgb(206, 206, 206);
 }
 
 .secondary {

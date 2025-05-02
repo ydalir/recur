@@ -11,6 +11,10 @@ body {
   color: black;
 }
 
+a {
+  color: currentColor;
+}
+
 h1 {
   font-size: 2rem;
 }
