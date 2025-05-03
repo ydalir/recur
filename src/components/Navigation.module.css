@@ -25,6 +25,14 @@
     color: inherit;
   }
 
+  &:hover {
+    outline: 1px dashed currentColor;
+  }
+
+  &:active {
+    background-color: var(--dark-gray);
+  }
+
   &[aria-current="page"] {
     outline: 1px solid currentColor;
   }

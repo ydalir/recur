@@ -11,20 +11,49 @@
 }
 
 .primary {
-  background-color: var(--gray);
+  background-color: var(--light-gray);
   outline: 2px solid rgb(206, 206, 206);
+
+  &:hover {
+    background-color: var(--gray);
+  }
+  &:active {
+    background-color: var(--dark-gray);
+  }
 }
 
 .secondary {
+  background-color: white;
   border: 2px dashed currentColor;
+
+  &:hover {
+    background-color: var(--light-gray);
+  }
+  &:active {
+    background-color: var(--gray);
+  }
 }
 
 .success {
   background-color: var(--light-green);
+
+  &:hover {
+    background-color: var(--green);
+  }
+  &:active {
+    background-color: var(--dark-green);
+  }
 }
 
 .warning {
-  background-color: rgb(255, 164, 164);
+  background-color: var(--light-red);
+
+  &:hover {
+    background-color: var(--red);
+  }
+  &:active {
+    background-color: var(--dark-red);
+  }
 }
 
 .linkButton {

@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Task } from "../../utils/task";
 import style from "./Task.module.css";
-import { Link } from "react-router";
 import { Dayjs } from "dayjs";
 import clsx from "clsx";
 import { Button } from "../Button/Button";
 import { today } from "../../utils/date";
+import { LinkButton } from "../Button/LinkButton";
 
 type Props = {
   task: Task;
@@ -38,13 +38,13 @@ export const TaskComponent: FC<Props> = ({ task }) => {
   const [text, dueStyle] = formatDueDate(task.dueDate);
 
   return (
-    <Link to={`edit/${task.id}`} className={style.task}>
+    <LinkButton to={`edit/${task.id}`} className={style.task}>
       <span>{task.title}</span>
       <div className={style.dueInfoContainer}>
         <span className={clsx(style.due, dueStyle)}>{text}</span>
         <span>⟲ {recurs}</span>
       </div>
-    </Link>
+    </LinkButton>
   );
 };
 

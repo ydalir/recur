@@ -1,16 +1,9 @@
 .task {
+  font-size: 1rem;
   display: grid;
   grid-template-columns: 3fr 2fr;
 
-  background-color: var(--light-gray);
-
   padding: 1rem;
-
-  text-decoration: none;
-  color: currentColor;
-  &:visited {
-    color: currentColor;
-  }
 }
 
 .taskButton {
