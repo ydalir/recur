@@ -7,15 +7,21 @@ import { Navigation } from "./components/Navigation";
 import { DeleteEntryPage } from "./pages/DeleteEntry/DeleteEntryPage";
 import { DeleteTaskPage } from "./pages/DeleteTask/DeleteTaskPage";
 import { Redirect } from "./pages/Redirect";
+import { ConfirmEntryPage } from "./pages/AddEntry/ConfirmEntryPage";
 
 export const App = () => {
   return (
     <Routes>
       <Route element={<Navigation />}>
         <Route path="/" element={<Redirect />} />
-        <Route path="log">
+        <Route path="log" element={<Redirect />} />
+        <Route path="log/:date">
           <Route index element={<HomePage />} />
-          <Route path="add/:date" element={<AddEntryPage />} />
+          <Route path=":taskId" element={<ConfirmEntryPage />} />
+          <Route path="add">
+            <Route index element={<AddEntryPage />} />
+            <Route path=":taskId" element={<ConfirmEntryPage />} />
+          </Route>
           <Route path="delete/:entryId" element={<DeleteEntryPage />} />
         </Route>
 

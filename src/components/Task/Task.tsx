@@ -3,7 +3,6 @@ import { Task } from "../../utils/task";
 import style from "./Task.module.css";
 import { Dayjs } from "dayjs";
 import clsx from "clsx";
-import { Button } from "../Button/Button";
 import { today } from "../../utils/date";
 import { LinkButton } from "../Button/LinkButton";
 
@@ -48,17 +47,17 @@ export const TaskComponent: FC<Props> = ({ task }) => {
   );
 };
 
-export const TaskButton: FC<Props & { onClick: () => void }> = ({
+export const TaskButton: FC<Props & { pathPrefix?: string }> = ({
   task,
-  onClick,
+  pathPrefix = "",
 }) => {
   const [, dueStyle] = formatDueDate(task.dueDate);
   return (
-    <Button className={style.taskButton} onClick={onClick}>
+    <LinkButton to={`${pathPrefix}${task.id}`} className={style.taskButton}>
       <span>{task.title}</span>
       <div className={style.dueInfoContainer}>
         <span className={clsx(style.due, dueStyle)}></span>
       </div>
-    </Button>
+    </LinkButton>
   );
 };

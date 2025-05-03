@@ -1,18 +1,13 @@
 import dayjs from "dayjs";
-import { useNavigate, useParams } from "react-router";
-import { formatDate, sortDates } from "../../utils/date";
+import { sortDates } from "../../utils/date";
 import { useEffect, useMemo, useState } from "react";
 import { Task, toTask } from "../../utils/task";
-import { addEntry, getTasks } from "../../utils/idb";
+import { getTasks } from "../../utils/idb";
 import { LinkButton } from "../../components/Button/LinkButton";
 import style from "./AddEntryPage.module.css";
 import { TaskButton } from "../../components/Task/Task";
 
 export const AddEntryPage = () => {
-  const params = useParams();
-  const date = dayjs(params["date"]);
-  const navigate = useNavigate();
-
   const [onlyDue, setOnlyDue] = useState<boolean>(true);
 
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -51,29 +46,10 @@ export const AddEntryPage = () => {
       <div className={style.taskContainer}>
         {!filteredTasks.length && "No more tasks"}
         {filteredTasks.map((task) => (
-          <TaskButton
-            key={task.id}
-            task={task}
-            onClick={() => {
-              addEntry(
-                {
-                  date: formatDate(date),
-                  id: crypto.randomUUID(),
-                  taskId: task.id,
-                  title: task.title,
-                },
-                task
-              ).then(() => {
-                navigate("..");
-              });
-            }}
-          />
+          <TaskButton key={task.id} task={task} />
         ))}
       </div>
-      <LinkButton
-        to={".."}
-        variant="secondary"
-      >
+      <LinkButton to={".."} variant="secondary">
         Cancel
       </LinkButton>
     </div>

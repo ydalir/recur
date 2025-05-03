@@ -10,7 +10,7 @@ type Props = {
 export const EntryComponent: FC<Props> = ({ entry }) => {
   return (
     <span className={style.entry}>
-      <span>»</span>
+      <span>✅</span>
       <span>{entry.title}</span>
       <Link to={`delete/${entry.id}`} className={style.cross}>
         x

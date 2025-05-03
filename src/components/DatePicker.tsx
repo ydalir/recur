@@ -1,13 +1,9 @@
 import dayjs, { Dayjs } from "dayjs";
 import { FC } from "react";
-import { Button } from "./Button/Button";
 import style from "./DatePicker.module.css";
 import { formatDate, today } from "../utils/date";
-
-type Props = {
-  date: dayjs.Dayjs;
-  setDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs>>;
-};
+import { useParams } from "react-router";
+import { LinkButton } from "./Button/LinkButton";
 
 const dateDisplay = (date: Dayjs): string => {
   const now = today();
@@ -19,16 +15,19 @@ const dateDisplay = (date: Dayjs): string => {
   return formatDate(date);
 };
 
-export const DatePicker: FC<Props> = ({ date, setDate }) => {
+export const DatePicker: FC = () => {
+  const params = useParams();
+  const date = dayjs(params["date"]);
+
   return (
     <div className={style.datePicker}>
-      <Button onClick={() => setDate((prev) => prev.add(-1, "day"))}>
+      <LinkButton to={`/log/${formatDate(date.add(-1, "day"))}`}>
         {"←"}
-      </Button>
+      </LinkButton>
       <h2>{dateDisplay(date)}</h2>
-      <Button onClick={() => setDate((prev) => prev.add(1, "day"))}>
+      <LinkButton to={`/log/${formatDate(date.add(1, "day"))}`}>
         {"→"}
-      </Button>
+      </LinkButton>
     </div>
   );
 };
