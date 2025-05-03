@@ -3,6 +3,10 @@
   padding-bottom: 0;
 }
 
+.quickAdd {
+  padding: 3rem 1rem;
+}
+
 .entriesContainer {
   padding: 3rem 1rem;
   display: flex;

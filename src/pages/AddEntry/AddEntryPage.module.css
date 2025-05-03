@@ -6,6 +6,11 @@
   gap: 1rem;
 }
 
+.confirmEntryPage {
+  font-size: 2rem;
+  text-align: center;
+}
+
 .checkbox {
   align-self: end;
 }

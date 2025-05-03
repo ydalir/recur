@@ -24,44 +24,49 @@ export const ConfirmEntryPage = () => {
 
   const { dueDate: newDueDate } = updateDueDate(task, date);
 
-  const dueDateText =
-    newDueDate !== null ? formatDate(newDueDate) : "Does not recur";
+  const dueDateText = task.oneOff
+    ? "This is a one-off task and will be removed"
+    : newDueDate !== null
+    ? formatDate(newDueDate)
+    : "This task does not recur";
 
   return (
     <div className={style.confirmEntryPage}>
-      Task
-      <div>{task.title}</div>
-      Date
-      <div>{date}</div>
-      Next due date
-      {task.oneOff ? (
-        <div>This is a one-off task and will be removed</div>
-      ) : (
-        <div>{dueDateText}</div>
-      )}
       <div>
-        <Button
-          variant="success"
-          onClick={() => {
-            addEntry(
-              {
-                date: date,
-                id: crypto.randomUUID(),
-                taskId: task.id,
-                title: task.title,
-              },
-              task
-            ).then(() => {
-              navigate("..");
-            });
-          }}
-        >
-          Log task
-        </Button>
-        <LinkButton to=".." variant="secondary">
-          Cancel
-        </LinkButton>
+        Task:
+        <br></br>"{task.title}"
       </div>
+      <div>
+        Date:
+        <br></br>
+        {date}
+      </div>
+      <div>
+        Due next:
+        <br></br>
+        {dueDateText}
+      </div>
+      <Button
+        variant="success"
+        onClick={() => {
+          addEntry(
+            {
+              date: date,
+              id: crypto.randomUUID(),
+              taskId: task.id,
+              title: task.title,
+            },
+            task
+          ).then(() => {
+            navigate("..");
+          });
+        }}
+      >
+        Confirm
+      </Button>
+      <LinkButton to=".." variant="secondary">
+        Cancel
+      </LinkButton>
     </div>
   );
 };

@@ -46,12 +46,12 @@ export const HomePage = () => {
     <div className={style.homepage}>
       <DatePicker />
       {tasks.length !== 0 && (
-        <>
+        <div className={style.quickAdd}>
           <h2>Quick-add</h2>
           {tasks.map((task) => (
             <TaskButton key={task.id} task={task} />
           ))}
-        </>
+        </div>
       )}
       <div className={style.entriesContainer}>
         {!entries.length && "No entries"}
