@@ -5,6 +5,7 @@ type BaseTask = {
   id: string;
   title: string;
   interval: number | null;
+  oneOff: boolean | undefined;
 };
 
 export type DBTask = {
@@ -49,4 +50,5 @@ export const defaultTask = (): DBTask => ({
   id: crypto.randomUUID(),
   dueDate: dayjs().format("YYYY-MM-DD"),
   interval: null,
+  oneOff: false,
 });

@@ -18,6 +18,7 @@ export const TaskForm: FC<Props> = ({ task, saveTask, existingTask }) => {
   const [interval, setInterval] = useState<string>(
     task.interval?.toString() ?? ""
   );
+  const [oneOff, setOneOff] = useState<boolean>(Boolean(task.oneOff));
   const [shouldRecur, setShouldRecur] = useState<boolean>(interval !== "");
 
   return (
@@ -40,26 +41,36 @@ export const TaskForm: FC<Props> = ({ task, saveTask, existingTask }) => {
         />
       </label>
       <label>
-        Interval
-        <span className={style.intervalInputs}>
-          <input
-            type="number"
-            value={shouldRecur ? interval : ""}
-            onChange={(e) => {
-              if (e.target.value === "") setShouldRecur(false);
-              else setShouldRecur(true);
-
-              setInterval(e.target.value);
-            }}
-            placeholder="Never"
-          />
-          <input
-            type="checkbox"
-            checked={shouldRecur}
-            onChange={() => setShouldRecur((prev) => !prev)}
-          />
-        </span>
+        One-off
+        <input
+          type="checkbox"
+          checked={oneOff}
+          onChange={() => setOneOff((prev) => !prev)}
+        />
       </label>
+      {!oneOff && (
+        <label>
+          Interval
+          <span className={style.intervalInputs}>
+            <input
+              type="number"
+              value={shouldRecur ? interval : ""}
+              onChange={(e) => {
+                if (e.target.value === "") setShouldRecur(false);
+                else setShouldRecur(true);
+
+                setInterval(e.target.value);
+              }}
+              placeholder="Never"
+            />
+            <input
+              type="checkbox"
+              checked={shouldRecur}
+              onChange={() => setShouldRecur((prev) => !prev)}
+            />
+          </span>
+        </label>
+      )}
       <div className={style.buttonsContainer}>
         <Button
           variant="success"
@@ -74,6 +85,7 @@ export const TaskForm: FC<Props> = ({ task, saveTask, existingTask }) => {
               title,
               dueDate: isValidDate ? dueDate : null,
               interval: isNumber && shouldRecur ? intervalNumber : null,
+              oneOff,
             });
           }}
         >
