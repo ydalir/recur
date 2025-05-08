@@ -14,8 +14,7 @@ export const App = () => {
     <Routes>
       <Route element={<Navigation />}>
         <Route path="/" element={<Redirect />} />
-        <Route path="log" element={<Redirect />} />
-        <Route path="log/:date">
+        <Route path="log/:date?">
           <Route index element={<HomePage />} />
           <Route path=":taskId" element={<ConfirmEntryPage />} />
           <Route path="add">

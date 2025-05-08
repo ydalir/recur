@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { useEffect, useMemo, useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
+import { useEffect, useState } from "react";
 import { DatePicker } from "../../components/DatePicker";
 import { LogEntry } from "../../utils/logEntry";
 import { getEntriesForDate, getTasks } from "../../utils/idb";
@@ -13,9 +13,29 @@ import { TaskButton } from "../../components/Task/Task";
 
 export const HomePage = () => {
   const params = useParams();
-  const date = useMemo(() => dayjs(params["date"]), [params]);
+  const dateString = params["date"];
+
+  const [date, setDate] = useState<Dayjs>(
+    dateString ? dayjs(dateString) : today()
+  );
+
   const [entries, setEntries] = useState<LogEntry[]>();
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    setDate(dateString ? dayjs(dateString) : today());
+  }, [dateString]);
+
+  useEffect(() => {
+    const listener = () => {
+      if (!dateString) {
+        setDate(today());
+      }
+    };
+    document.addEventListener("visibilitychange", listener);
+
+    return () => document.removeEventListener("visibilitychange", listener);
+  }, [dateString]);
 
   useEffect(() => {
     getEntriesForDate(date).then(setEntries);

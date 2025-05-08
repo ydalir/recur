@@ -9,15 +9,16 @@ const dateDisplay = (date: Dayjs): string => {
   const now = today();
 
   if (date.isSame(now, "day")) return "Today";
-  if (date.isSame(now.add(1, "d"), "day")) return "Tomorrow";
-  if (date.isSame(now.add(-1, "d"), "day")) return "Yesterday";
 
   return formatDate(date);
 };
 
 export const DatePicker: FC = () => {
   const params = useParams();
-  const date = dayjs(params["date"]);
+  const dateString = params["date"];
+  const now = today();
+  const date = dateString ? dayjs(dateString) : now;
+  const nextDate = date.add(1, "day");
 
   return (
     <div className={style.datePicker}>
@@ -25,7 +26,11 @@ export const DatePicker: FC = () => {
         {"←"}
       </LinkButton>
       <h2>{dateDisplay(date)}</h2>
-      <LinkButton to={`/log/${formatDate(date.add(1, "day"))}`}>
+      <LinkButton
+        to={
+          nextDate.isSame(now, "day") ? "/log" : `/log/${formatDate(nextDate)}`
+        }
+      >
         {"→"}
       </LinkButton>
     </div>
