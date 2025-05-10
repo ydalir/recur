@@ -43,7 +43,7 @@ export const HomePage = () => {
       <DatePicker />
       <div className={style.quickAdd}>
         <div className={style.header}>
-          <h2>Quick-add</h2>
+          <h2>Due</h2>
           <Link to={`add`}>All tasks →</Link>
         </div>
 

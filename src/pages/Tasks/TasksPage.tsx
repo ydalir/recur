@@ -24,6 +24,7 @@ export const TasksPage = () => {
   return (
     <div className={style.tasksPage}>
       <div className={style.tasksContainer}>
+        <h2>Edit tasks</h2>
         {tasks.map((task) => (
           <TaskComponent task={task} pathPrefix="edit/" key={task.id} />
         ))}
