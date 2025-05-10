@@ -17,7 +17,6 @@ export const App = () => {
         <Route path="/" element={<Redirect />} />
         <Route path="log/:date?" element={<DateProvider />}>
           <Route index element={<HomePage />} />
-          <Route path=":taskId" element={<ConfirmEntryPage />} />
           <Route path="add">
             <Route index element={<AddEntryPage />} />
             <Route path=":taskId" element={<ConfirmEntryPage />} />

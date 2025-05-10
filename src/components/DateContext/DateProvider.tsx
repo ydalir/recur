@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Outlet } from "react-router";
-import { today } from "../../utils/date";
+import { formatDate, today } from "../../utils/date";
 import { DateContext } from "./DateContext";
 
 export const DateProvider = () => {
@@ -27,8 +27,10 @@ export const DateProvider = () => {
     return () => document.removeEventListener("visibilitychange", listener);
   }, [dateString]);
 
+  const formattedDate = useMemo(() => formatDate(date), [date]);
+
   return (
-    <DateContext.Provider value={date}>
+    <DateContext.Provider value={[date, formattedDate]}>
       <Outlet />
     </DateContext.Provider>
   );

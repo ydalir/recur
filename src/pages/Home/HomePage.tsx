@@ -11,7 +11,7 @@ import { TaskButton } from "../../components/Task/Task";
 import { DateContext } from "../../components/DateContext/DateContext";
 
 export const HomePage = () => {
-  const date = useContext(DateContext);
+  const [date] = useContext(DateContext);
 
   const [entries, setEntries] = useState<LogEntry[]>();
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -48,7 +48,7 @@ export const HomePage = () => {
         <div className={style.quickAdd}>
           <h2>Quick-add</h2>
           {tasks.map((task) => (
-            <TaskButton key={task.id} task={task} />
+            <TaskButton key={task.id} task={task} pathPrefix="add/" />
           ))}
         </div>
       )}

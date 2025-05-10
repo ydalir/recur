@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import { LinkButton } from "../../components/Button/LinkButton";
 import style from "./AddEntryPage.module.css";
@@ -6,12 +6,13 @@ import { Task, toTask, updateDueDate } from "../../utils/task";
 import { addEntry, getTask } from "../../utils/idb";
 import { useNavigate, useParams } from "react-router";
 import { formatDate } from "../../utils/date";
+import { DateContext } from "../../components/DateContext/DateContext";
 
 export const ConfirmEntryPage = () => {
   const navigate = useNavigate();
+  const [, dateString] = useContext(DateContext);
   const params = useParams();
   const taskId = params["taskId"];
-  const date = params["date"];
   const [task, setTask] = useState<Task>();
 
   useEffect(() => {
@@ -20,9 +21,9 @@ export const ConfirmEntryPage = () => {
     }
   }, [taskId]);
 
-  if (!task || !date) return "One sec";
+  if (!task || !dateString) return "One sec";
 
-  const { dueDate: newDueDate } = updateDueDate(task, date);
+  const { dueDate: newDueDate } = updateDueDate(task, dateString);
 
   const dueDateText = task.oneOff
     ? "This is a one-off task and will be removed"
@@ -39,7 +40,7 @@ export const ConfirmEntryPage = () => {
       <div>
         Date:
         <br></br>
-        {date}
+        {dateString}
       </div>
       <div>
         Due next:
@@ -51,7 +52,7 @@ export const ConfirmEntryPage = () => {
         onClick={() => {
           addEntry(
             {
-              date: date,
+              date: dateString,
               id: crypto.randomUUID(),
               taskId: task.id,
               title: task.title,

@@ -1,5 +1,8 @@
 import { Dayjs } from "dayjs";
 import { createContext } from "react";
-import { today } from "../../utils/date";
+import { formatDate, today } from "../../utils/date";
 
-export const DateContext = createContext<Dayjs>(today());
+export const DateContext = createContext<[Dayjs, string]>([
+  today(),
+  formatDate(today()),
+]);
