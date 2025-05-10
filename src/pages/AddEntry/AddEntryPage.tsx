@@ -4,7 +4,7 @@ import { Task, toTask } from "../../utils/task";
 import { getTasks } from "../../utils/idb";
 import { LinkButton } from "../../components/Button/LinkButton";
 import style from "./AddEntryPage.module.css";
-import { TaskButton } from "../../components/Task/Task";
+import { TaskComponent } from "../../components/Task/Task";
 import { DatePicker } from "../../components/DatePicker";
 
 export const AddEntryPage = () => {
@@ -25,7 +25,7 @@ export const AddEntryPage = () => {
       <div className={style.taskContainer}>
         {!tasks.length && "No tasks"}
         {tasks.map((task) => (
-          <TaskButton key={task.id} task={task} />
+          <TaskComponent task={task} key={task.id} />
         ))}
       </div>
       <LinkButton to={".."} variant="secondary">

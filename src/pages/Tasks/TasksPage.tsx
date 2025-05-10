@@ -25,7 +25,7 @@ export const TasksPage = () => {
     <div className={style.tasksPage}>
       <div className={style.tasksContainer}>
         {tasks.map((task) => (
-          <TaskComponent task={task} key={task.id} />
+          <TaskComponent task={task} pathPrefix="edit/" key={task.id} />
         ))}
       </div>
       <LinkButton className={style.addButton} to="edit">

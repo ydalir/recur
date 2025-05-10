@@ -8,6 +8,7 @@ import { LinkButton } from "../Button/LinkButton";
 
 type Props = {
   task: Task;
+  pathPrefix?: string;
 };
 
 const formatDueDate = (date: Dayjs | null): [string, string | undefined] => {
@@ -31,13 +32,13 @@ const formatInterval = (interval: number | null) => {
   return `${interval} days`;
 };
 
-export const TaskComponent: FC<Props> = ({ task }) => {
+export const TaskComponent: FC<Props> = ({ task, pathPrefix = "" }) => {
   const recurs = formatInterval(task.interval);
 
   const [text, dueStyle] = formatDueDate(task.dueDate);
 
   return (
-    <LinkButton to={`edit/${task.id}`} className={style.task}>
+    <LinkButton to={`${pathPrefix}${task.id}`} className={style.task}>
       <span>{task.title}</span>
       <div className={style.dueInfoContainer}>
         <span className={clsx(style.due, dueStyle)}>{text}</span>
@@ -47,10 +48,7 @@ export const TaskComponent: FC<Props> = ({ task }) => {
   );
 };
 
-export const TaskButton: FC<Props & { pathPrefix?: string }> = ({
-  task,
-  pathPrefix = "",
-}) => {
+export const TaskButton: FC<Props> = ({ task, pathPrefix = "" }) => {
   const [, dueStyle] = formatDueDate(task.dueDate);
   return (
     <LinkButton to={`${pathPrefix}${task.id}`} className={style.taskButton}>
