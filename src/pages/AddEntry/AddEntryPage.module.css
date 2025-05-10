@@ -11,10 +11,6 @@
   text-align: center;
 }
 
-.checkbox {
-  align-self: end;
-}
-
 .taskContainer {
   width: 100%;
   display: flex;

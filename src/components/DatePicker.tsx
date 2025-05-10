@@ -1,38 +1,38 @@
-import dayjs, { Dayjs } from "dayjs";
-import { FC } from "react";
+import { Dayjs } from "dayjs";
+import { FC, useContext } from "react";
 import style from "./DatePicker.module.css";
 import { formatDate, today } from "../utils/date";
-import { useParams } from "react-router";
 import { LinkButton } from "./Button/LinkButton";
+import { DateContext } from "./DateContext/DateContext";
 
-const dateDisplay = (date: Dayjs): string => {
-  const now = today();
-
-  if (date.isSame(now, "day")) return "Today";
-
-  return formatDate(date);
+type Props = {
+  disabled?: boolean;
 };
 
-export const DatePicker: FC = () => {
-  const params = useParams();
-  const dateString = params["date"];
+const dateLink = (date: Dayjs) => `/log/${formatDate(date)}`;
+
+export const DatePicker: FC<Props> = ({ disabled = false }) => {
+  const [date] = useContext(DateContext);
   const now = today();
-  const date = dateString ? dayjs(dateString) : now;
-  const nextDate = date.add(1, "day");
+
+  const prevDay = date.add(-1, "day");
+  const nextDay = date.add(1, "day");
+  const isToday = date.isSame(now, "day");
+  const isYesterday = nextDay.isSame(now, "day");
+  const displayDate = date.format("ddd D. MMM");
 
   return (
     <div className={style.datePicker}>
-      <LinkButton to={`/log/${formatDate(date.add(-1, "day"))}`}>
-        {"←"}
-      </LinkButton>
-      <h2>{dateDisplay(date)}</h2>
-      <LinkButton
-        to={
-          nextDate.isSame(now, "day") ? "/log" : `/log/${formatDate(nextDate)}`
-        }
-      >
-        {"→"}
-      </LinkButton>
+      {!disabled && <LinkButton to={dateLink(prevDay)}>{"←"}</LinkButton>}
+      <span className={style.heading}>
+        <h2>{displayDate}</h2>
+        {isToday && "Today"}
+      </span>
+      {!isToday && !disabled && (
+        <LinkButton to={isYesterday ? "/log" : dateLink(nextDay)}>
+          {"→"}
+        </LinkButton>
+      )}
     </div>
   );
 };

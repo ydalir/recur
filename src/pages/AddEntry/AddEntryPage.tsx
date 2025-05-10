@@ -1,15 +1,13 @@
-import dayjs from "dayjs";
 import { sortDates } from "../../utils/date";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Task, toTask } from "../../utils/task";
 import { getTasks } from "../../utils/idb";
 import { LinkButton } from "../../components/Button/LinkButton";
 import style from "./AddEntryPage.module.css";
 import { TaskButton } from "../../components/Task/Task";
+import { DatePicker } from "../../components/DatePicker";
 
 export const AddEntryPage = () => {
-  const [onlyDue, setOnlyDue] = useState<boolean>(true);
-
   const [tasks, setTasks] = useState<Task[]>([]);
   useEffect(() => {
     getTasks().then((tasks) => {
@@ -21,31 +19,12 @@ export const AddEntryPage = () => {
     });
   }, []);
 
-  const filteredTasks = useMemo(() => {
-    if (!onlyDue) return tasks;
-
-    const now = dayjs();
-    return tasks.filter(
-      (task) =>
-        task.dueDate &&
-        (task.dueDate.isSame(now, "day") || task.dueDate.isBefore(now, "day"))
-    );
-  }, [onlyDue, tasks]);
-
   return (
     <div className={style.addEntryPage}>
-      <label className={style.checkbox}>
-        Only due tasks{" "}
-        <input
-          type="checkbox"
-          checked={onlyDue}
-          onChange={() => setOnlyDue((prev) => !prev)}
-        />
-      </label>
-
+      <DatePicker disabled />
       <div className={style.taskContainer}>
-        {!filteredTasks.length && "No more tasks"}
-        {filteredTasks.map((task) => (
+        {!tasks.length && "No tasks"}
+        {tasks.map((task) => (
           <TaskButton key={task.id} task={task} />
         ))}
       </div>

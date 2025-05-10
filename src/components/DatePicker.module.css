@@ -3,4 +3,12 @@
   width: 100%;
   justify-content: space-between;
   padding: 0 0.5rem;
+  position: relative;
+}
+
+.heading {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
 }
