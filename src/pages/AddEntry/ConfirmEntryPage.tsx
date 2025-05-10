@@ -59,13 +59,13 @@ export const ConfirmEntryPage = () => {
             },
             task
           ).then(() => {
-            navigate("..");
+            navigate("../..");
           });
         }}
       >
         Confirm
       </Button>
-      <LinkButton to=".." variant="secondary">
+      <LinkButton to="../.." variant="secondary">
         Cancel
       </LinkButton>
     </div>
