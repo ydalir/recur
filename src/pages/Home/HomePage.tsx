@@ -1,41 +1,20 @@
-import dayjs, { Dayjs } from "dayjs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DatePicker } from "../../components/DatePicker";
 import { LogEntry } from "../../utils/logEntry";
 import { getEntriesForDate, getTasks } from "../../utils/idb";
 import style from "./HomePage.module.css";
 import { LinkButton } from "../../components/Button/LinkButton";
 import { EntryComponent } from "../../components/Entry/Entry";
-import { useParams } from "react-router";
 import { Task, toTask } from "../../utils/task";
 import { sortDates, today } from "../../utils/date";
 import { TaskButton } from "../../components/Task/Task";
+import { DateContext } from "../../components/DateContext/DateContext";
 
 export const HomePage = () => {
-  const params = useParams();
-  const dateString = params["date"];
-
-  const [date, setDate] = useState<Dayjs>(
-    dateString ? dayjs(dateString) : today()
-  );
+  const date = useContext(DateContext);
 
   const [entries, setEntries] = useState<LogEntry[]>();
   const [tasks, setTasks] = useState<Task[]>([]);
-
-  useEffect(() => {
-    setDate(dateString ? dayjs(dateString) : today());
-  }, [dateString]);
-
-  useEffect(() => {
-    const listener = () => {
-      if (!dateString) {
-        setDate(today());
-      }
-    };
-    document.addEventListener("visibilitychange", listener);
-
-    return () => document.removeEventListener("visibilitychange", listener);
-  }, [dateString]);
 
   useEffect(() => {
     getEntriesForDate(date).then(setEntries);

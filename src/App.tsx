@@ -8,13 +8,14 @@ import { DeleteEntryPage } from "./pages/DeleteEntry/DeleteEntryPage";
 import { DeleteTaskPage } from "./pages/DeleteTask/DeleteTaskPage";
 import { Redirect } from "./pages/Redirect";
 import { ConfirmEntryPage } from "./pages/AddEntry/ConfirmEntryPage";
+import { DateProvider } from "./components/DateContext/DateProvider";
 
 export const App = () => {
   return (
     <Routes>
       <Route element={<Navigation />}>
         <Route path="/" element={<Redirect />} />
-        <Route path="log/:date?">
+        <Route path="log/:date?" element={<DateProvider />}>
           <Route index element={<HomePage />} />
           <Route path=":taskId" element={<ConfirmEntryPage />} />
           <Route path="add">
