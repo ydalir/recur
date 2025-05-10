@@ -29,7 +29,7 @@ export const TasksPage = () => {
           <TaskComponent task={task} pathPrefix="edit/" key={task.id} />
         ))}
       </div>
-      <LinkButton className={style.addButton} to="edit">
+      <LinkButton className={style.addButton} variant='success' to="edit">
         +
       </LinkButton>
     </div>

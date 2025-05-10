@@ -28,7 +28,7 @@ export const AddEntryPage = () => {
           <TaskComponent task={task} key={task.id} />
         ))}
       </div>
-      <LinkButton to={".."} variant="secondary">
+      <LinkButton to={".."} variant="secondary" className={style.cancelButton}>
         Cancel
       </LinkButton>
     </div>

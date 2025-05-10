@@ -17,4 +17,5 @@
   width: 100%;
   position: sticky;
   bottom: 1rem;
+  outline: 1px solid currentColor;
 }
