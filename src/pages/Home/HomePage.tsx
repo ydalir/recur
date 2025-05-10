@@ -3,12 +3,12 @@ import { DatePicker } from "../../components/DatePicker";
 import { LogEntry } from "../../utils/logEntry";
 import { getEntriesForDate, getTasks } from "../../utils/idb";
 import style from "./HomePage.module.css";
-import { LinkButton } from "../../components/Button/LinkButton";
 import { EntryComponent } from "../../components/Entry/Entry";
 import { Task, toTask } from "../../utils/task";
 import { sortDates, today } from "../../utils/date";
 import { TaskButton } from "../../components/Task/Task";
 import { DateContext } from "../../components/DateContext/DateContext";
+import { Link } from "react-router";
 
 export const HomePage = () => {
   const [date] = useContext(DateContext);
@@ -44,23 +44,28 @@ export const HomePage = () => {
   return (
     <div className={style.homepage}>
       <DatePicker />
-      {tasks.length !== 0 && (
+      {tasks.length !== 0 ? (
         <div className={style.quickAdd}>
-          <h2>Quick-add</h2>
-          {tasks.map((task) => (
-            <TaskButton key={task.id} task={task} pathPrefix="add/" />
-          ))}
+          <div className={style.header}>
+            <h2>Quick-add</h2>
+            <Link to={`add`}>All tasks →</Link>
+          </div>
+          <div className={style.tasks}>
+            {tasks.map((task) => (
+              <TaskButton key={task.id} task={task} pathPrefix="add/" />
+            ))}
+          </div>
         </div>
+      ) : (
+        <div className={style.entriesContainer}>No tasks due</div>
       )}
+      <hr></hr>
       <div className={style.entriesContainer}>
         {!entries.length && "No entries"}
         {entries.map((entry) => (
           <EntryComponent entry={entry} key={entry.id} />
         ))}
       </div>
-      <LinkButton className={style.addButton} to={`add`}>
-        +
-      </LinkButton>
     </div>
   );
 };
